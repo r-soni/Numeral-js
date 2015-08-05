@@ -233,9 +233,8 @@
             optDec = false,
             abbr = '',
             abbrK = false, // force abbreviation to thousands
-            abbrM = false, // force abbreviation to millions
-            abbrB = false, // force abbreviation to billions
-            abbrT = false, // force abbreviation to trillions
+            abbrL = false, // force abbreviation to lacs
+            abbrC = false, // force abbreviation to crores
             abbrForce = false, // force abbreviation
             bytes = '',
             ord = '',
@@ -268,10 +267,9 @@
             if (format.indexOf('a') > -1) {
                 // check if abbreviation is specified
                 abbrK = format.indexOf('aK') >= 0;
-                abbrM = format.indexOf('aM') >= 0;
-                abbrB = format.indexOf('aB') >= 0;
-                abbrT = format.indexOf('aT') >= 0;
-                abbrForce = abbrK || abbrM || abbrB || abbrT;
+                abbrL = format.indexOf('aL') >= 0;
+                abbrC = format.indexOf('aC') >= 0;
+                abbrForce = abbrK || abbrL || abbrC;
 
                 // check for space before abbreviation
                 if (format.indexOf(' a') > -1) {
@@ -281,19 +279,15 @@
                     format = format.replace('a', '');
                 }
 
-                if (abs >= Math.pow(10, 12) && !abbrForce || abbrT) {
-                    // trillion
-                    abbr = abbr + languages[currentLanguage].abbreviations.trillion;
-                    value = value / Math.pow(10, 12);
-                } else if (abs < Math.pow(10, 12) && abs >= Math.pow(10, 9) && !abbrForce || abbrB) {
-                    // billion
-                    abbr = abbr + languages[currentLanguage].abbreviations.billion;
-                    value = value / Math.pow(10, 9);
-                } else if (abs < Math.pow(10, 9) && abs >= Math.pow(10, 6) && !abbrForce || abbrM) {
-                    // million
-                    abbr = abbr + languages[currentLanguage].abbreviations.million;
+                if (abs >= Math.pow(10, 7) && !abbrForce || abbrC) {
+                    // crores
+                    abbr = abbr + languages[currentLanguage].abbreviations.crore;
                     value = value / Math.pow(10, 6);
-                } else if (abs < Math.pow(10, 6) && abs >= Math.pow(10, 3) && !abbrForce || abbrK) {
+                } else if (abs < Math.pow(10, 7) && abs >= Math.pow(10, 5) && !abbrForce || abbrL) {
+                    // lacs
+                    abbr = abbr + languages[currentLanguage].abbreviations.lac;
+                    value = value / Math.pow(10, 5);
+                } else if (abs < Math.pow(10, 5) && abs >= Math.pow(10, 3) && !abbrForce || abbrK) {
                     // thousand
                     abbr = abbr + languages[currentLanguage].abbreviations.thousand;
                     value = value / Math.pow(10, 3);
