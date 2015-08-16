@@ -282,7 +282,7 @@
                 if (abs >= Math.pow(10, 7) && !abbrForce || abbrC) {
                     // crores
                     abbr = abbr + languages[currentLanguage].abbreviations.crore;
-                    value = value / Math.pow(10, 6);
+                    value = value / Math.pow(10, 7);
                 } else if (abs < Math.pow(10, 7) && abs >= Math.pow(10, 5) && !abbrForce || abbrL) {
                     // lacs
                     abbr = abbr + languages[currentLanguage].abbreviations.lac;
