@@ -371,7 +371,14 @@
             }
 
             if (thousands > -1) {
-                w = w.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + languages[currentLanguage].delimiters.thousands);
+                var str = w.toString();
+
+                if(str.length > 3){
+                    var firstThousand = "," + str.substr(str.length - 3);
+                    var hundreds = str.substr(0, str.length - 3).replace(/(\d)(?=(\d{2})+(?!\d))/g, '$1' + languages[currentLanguage].delimiters.thousands);
+                    w = hundreds + firstThousand;
+                }
+                // w = w.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1' + languages[currentLanguage].delimiters.thousands);
             }
 
             if (format.indexOf('.') === 0) {
